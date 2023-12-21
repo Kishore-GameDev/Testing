@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Bouncy : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Bouncy : MonoBehaviour
     public bool onFloor, reached;
     public Transform point;
     public Vector3 velocity;
+    public NavMeshAgent agent;
+    public GameObject bouncy;
 
     private void Update()
     {
@@ -35,7 +38,8 @@ public class Bouncy : MonoBehaviour
                 rigidBody.velocity = Vector3.zero;
                 rigidBody.AddForce(Vector3.up * force, ForceMode.Force);
             }
-            transform.position = Vector3.MoveTowards(transform.position, point.position, Time.deltaTime * 0.5f);
+            //transform.position = Vector3.MoveTowards(transform.position, point.position, Time.deltaTime * 0.5f);
+            agent.SetDestination(pointPos);
             Debug.Log("If");
         }
         else if(Vector3.Distance(player, pointPos) > stopDistance)
